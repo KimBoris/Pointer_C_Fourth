@@ -1,0 +1,4 @@
+﻿  main.c
+C:\Users\Feelgood_PC8\source\repos\Pointer_C_Fourth\Pointer_C_Fourth\main.c(10,9): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int *'입니다.
+C:\Users\Feelgood_PC8\source\repos\Pointer_C_Fourth\Pointer_C_Fourth\main.c(8,1): warning C4133: '초기화 중': 'char *'과(와) 'int *' 사이의 형식이 호환되지 않습니다.
+  Pointer_C_Fourth.vcxproj -> C:\Users\Feelgood_PC8\source\repos\Pointer_C_Fourth\Debug\Pointer_C_Fourth.exe
