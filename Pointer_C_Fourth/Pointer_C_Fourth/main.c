@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <malloc.h>	
 int main(void)
 {
 	//char szSrcBuf[12] = { "Hello" }; //0x0115f92c
@@ -177,23 +177,124 @@ int main(void)
 //없으면? = NULL을 반환
 //이런 함수를 활용할때 제발 좀 메모리를 쫓아다녀라.
 
-	char szBuffer[32] = { "Iamaboy." };
+	//char szBuffer[32] = { "Iamaboy." };
 
-	//배열의 주소를 출력
-	printf("%p\n", szBuffer);
+	////배열의 주소를 출력
+	//printf("%p\n", szBuffer);
 
-	//대상 문자열에서 문자열을 검색하고 찾은 위치(주소)를 출력한다
-	printf("%p\n", strstr(szBuffer, "am"));
-	printf("%p\n", strstr(szBuffer, "boy"));
+	////대상 문자열에서 문자열을 검색하고 찾은 위치(주소)를 출력한다
+	//printf("%p\n", strstr(szBuffer, "am"));
+	//printf("%p\n", strstr(szBuffer, "boy"));
 
-	//문자열이 검색된 위치에서 기준이 되는 주소를 빼면
-	//인덱스를 계산할 수 있다.
-
-	printf("Index : %d\n", strstr(szBuffer, "am") - szBuffer);
-	printf("Index : %d\n", strstr(szBuffer, "boy") - szBuffer);
-	//string.h 필수
+	////문자열이 검색된 위치에서 기준이 되는 주소를 빼면
+	////인덱스를 계산할 수 있다.
 
 
+	////주소에서 주소를 빼면 인덱스가 나온다.
+	//printf("Index : %d\n", strstr(szBuffer, "am") - szBuffer);
+	//printf("Index : %d\n", strstr(szBuffer, "boy") - szBuffer);
+	////string.h 필수
 
+
+
+ //	char szBuffer[12] = { "I am a boy." }; //0x010FFD60
+	//char* pszFound = strstr(szBuffer, "am");//0x010FFD62
+	//int nIndex = pszFound - szBuffer;//주소를 뺀다 60-62 = 2
+	////즉 2가 인덱스
+	////*상대 주소 = 기준주소 +-정수이기때문에
+	//// 상대주소 - 기준주소 = 정수 (인덱스) 가 나온다.
+	////이렇게 하면 인덱스가 나온다
+
+
+	//char szBuffer[32] = { "You are a girl." };
+
+	////배열의 첫번째 요소의 값을 %c형식으로 출력
+	//printf("%c\n", szBuffer[0]);
+	////0번 요소에 대한 주소인 배열의 이름(주소)에 대해 간접지정 연산을
+	////수행하고 그 안에 담긴 정보를 출력한다.
+	//printf("%c\n", *szBuffer);
+	////0을 더해도 주소는 달라지지않는다.
+	//printf("%c\n", *(szBuffer + 0));
+
+	////배열 연산자는 '기준주소 + 인덱스' 연산결과로 얻은 주소를
+	////간접 지정한것과 같다.
+	//printf("%c\n", szBuffer[5]);
+	//printf("%c\n", *(szBuffer + 5));
+
+	////주소 연산(&)은 간접지정 연산과 상반된다.
+	////그러므로 아래 세 줄의 코드는 모두 같다.
+	//printf("%s\n", &szBuffer[4]);
+	//printf("%s\n", &*(szBuffer + 4));
+	//printf("%s\n", szBuffer + 4);
+
+	/*char* pszData = szBuffer + 4;
+
+	printf("%c\n", szBuffer[0]);
+	printf("%c\n", pszData[0]);
+	printf("%c\n", pszData[6]);
+	printf("%s\n", szBuffer+4);
+	printf("%s\n", pszData);
+	printf("%s\n", pszData+4);*/
+
+
+	//<<void *realloc(void * memblock, size_t size);
+	//이미 할당된 메모리를 재할당.
+
+
+
+//<<Sprint()함수>>
+
+	//char *pszBuffer = NULL, *pszNewBuffer = NULL;
+
+	////12바이트 동적할당 후
+	//pszBuffer = (char*)malloc(13);
+	////NULL문자를 포함해 영문 11자를 저장
+	//sprintf_s(pszBuffer, "%s", "TestString");             >>>>>>>>>>>>>>>>>>>>>//왜 오류가 뜰까?
+	////동적할 메모리주소, 크기, 저장된 문자열등을 출력
+	//printf("[%p] %d %s\n", pszBuffer, _msize(pszBuffer), pszBuffer);>>>>>>>>>>>>>>>>//왜 오류가 뜰까?
+
+	////12바이트의 메모리를 32바이트로 '확장'을 시도한다.
+	//pszNewBuffer = (char*)realloc(pszBuffer, 32);
+	//if (pszNewBuffer == NULL)
+	//{
+	//	free(pszBuffer);
+	//}
+
+	char szBuffer[12] = { "I am a boy" };
+	/*0x001FF734  49 20 61 6d  I am
+	  0x001FF738  20 61 20 62   a b
+	  0x001FF73C  6f 79 cc cc  oy??*/
+	//메모리에 이런식으로 들어가있는데 
+
+	//1번째 줄
+	//2번째 줄
+	//3번째 줄 따로따로 들어간다 순차적으로
+
+
+	//예를 들어서
+	//I am a boy
+	//00 01 02 03 04 05 06 07 ...
+	//49 20 61 6D (I am)
+	//이 값을 계산기의 16진수에 넣어보면 6D612049 - 리틀 인디안방식
+	//Dec 헥사로 보면 이값은 1,835,081,801이 나온다
+	////이 값을 int자료형으로 나타내면
+	//int a = 1835081801;
+	////이것을 포인터로 찍으면 메모리 주소가 나온다.
+
+
+	//puts(&a);
+	////a메모리에는 I am이 들어간다
+	////참으로 신기하구만
+
+	//
+	////&a 부터 찍어서 
+	////儆儆이 한자는 cc부분을 찍으면 출력된다.
+	////한글이나 한자는 개당 2바이트 이기때문에 cc = 8개 = 4개의 儆
+	////따라서 값은 I am儆儆儆儆I am a boy 이 나온다.
+
+	//char* pszData = "I am a boy.";
+
+	int nData = *((int*)szBuffer);
+	printf("%d\n", nData);
 	return 0;
 }
