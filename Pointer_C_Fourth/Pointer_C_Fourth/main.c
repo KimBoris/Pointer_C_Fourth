@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 int main(void)
 {
 	//char szSrcBuf[12] = { "Hello" }; //0x0115f92c
@@ -164,6 +165,11 @@ int main(void)
 	////0보다 큰수 = a 가 b보다 알파벳 순서상 나중
 	////0보다 작은 수 = b가 a 보다 알파벳 순서상 나중
 
+
+
+
+
+
 //<strstr(const char *string, const char * strCharSet);
 //string = 검색당하는 대상
 //strCharSet = 검색할 문자열이 저장된 메모리 주소
@@ -171,26 +177,22 @@ int main(void)
 //없으면? = NULL을 반환
 //이런 함수를 활용할때 제발 좀 메모리를 쫓아다녀라.
 
-	char szBuffer[32] = { "I am a boy." };
+	char szBuffer[32] = { "Iamaboy." };
 
 	//배열의 주소를 출력
 	printf("%p\n", szBuffer);
 
 	//대상 문자열에서 문자열을 검색하고 찾은 위치(주소)를 출력한다
-	pritnf("%p\n", strstr(szBuffer, "am"));
+	printf("%p\n", strstr(szBuffer, "am"));
 	printf("%p\n", strstr(szBuffer, "boy"));
 
 	//문자열이 검색된 위치에서 기준이 되는 주소를 빼면
 	//인덱스를 계산할 수 있다.
 
-	//printf("Index : %d\n", strstr(szBuffer, "am") - szBuffer);
-	//printf("Index : %d\n", strstr(szBuffer, "boy") - szBuffer);
+	printf("Index : %d\n", strstr(szBuffer, "am") - szBuffer);
+	printf("Index : %d\n", strstr(szBuffer, "boy") - szBuffer);
 	//string.h 필수
 
-
-
-
-	//strstr함수부터 다시 36분
 
 
 	return 0;
